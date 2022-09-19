@@ -1,5 +1,19 @@
 from typing import List, Pattern as RegexPattern
 
+class Article:
+    def __init__(self, id, content):
+        self.id = id
+        self.content = content
+        
+    def __repr__(self):
+        return f"Article(id={self.id}, content={self.content})"
+    
+    def __to_json__(self):
+        return {
+            "id": self.id,
+            "content": self.content
+        }
+
 class Pattern:
     def __init__(self, id: str, pattern: RegexPattern):
         self.id = id
