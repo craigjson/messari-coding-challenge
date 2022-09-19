@@ -1,29 +1,24 @@
-from ..data.data import news_sources
-from ..models.models import NewsSource, Pattern
+from ..data.mock_data import news_sources
+from ..data.models import NewsSource, Pattern
+from ..data.query import query_news_sources, query_news_source, save_news_source, update_news_source, delete_news_source
 from typing import Dict, List
 
 ## Create News Source
-def save_news_source(source_id: str, url: str, patterns: List[Pattern]):
-    news_sources.append(NewsSource(
-        id = source_id,
-        url = url,
-        patterns = patterns
-    ))
+def create_news_source(source_id: str, url: str, patterns: List[Pattern]):
+    save_news_source(source_id, url, patterns)
 
 ## Get NewsSource by Id
-def get_source(source_id: str):
-   return news_sources[source_id]
-    
+def get_source(source_id: str) -> NewsSource:
+    return query_news_source(source_id)
+
 ## Get All NewsSources
-def get_sources() -> Dict[str, NewsSource]:
-   return news_sources
+def get_sources() -> List[NewsSource]:
+    return query_news_sources()
 
 ## Update NewsSource
 def update_source(source_id: str, url: str, patterns: List[Pattern]):
-    source = news_sources[source_id]
-    source.url = url
-    source.patterns = patterns
+    update_news_source(source_id, url, patterns)
 
 ## Delete NewsSource
 def delete_source(source_id: str):
-    del news_sources[source_id]
+    delete_news_source(source_id)

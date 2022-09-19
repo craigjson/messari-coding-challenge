@@ -18,23 +18,23 @@ def save_news_source():
         save_news_source(request_data["id"], request_data["url"], request_data["patterns"])
         return jsonify({"message": "Source created successfully"}), 201
     except Exception as e:
-        return jsonify({"error": "Error creating source \nError: {e.message}"}), 400
+        return jsonify({"error": f"Error creating source \nError: {e}"}), 400
 
 ## Get NewsSource by Id
 @app_news_source.route("/source/<string:source_id>")
 def get_source_route(source_id: str):
     try:
-        return get_source(source_id)
+        return jsonify(get_source(source_id).__to_json__())
     except Exception as e:
-        return jsonify({"error": f"Error getting source {source_id} \nError: {e.message}"}), 400
+        return jsonify({"error": f"Error getting source {source_id} \nError: {e}"}), 400
     
 ## Get All NewsSources
 @app_news_source.route("/sources")
 def get_sources_route():
     try:
-        return get_sources()
+        return jsonify([source.__to_json__() for source in get_sources()])
     except Exception as e:
-        return jsonify({"error": "Error getting sources \nError: {e.message}"}), 400
+        return jsonify({"error": f"Error getting sources \nError: {e}"}), 400
 
 ## Update NewsSource
 @app_news_source.route("/source/update/", methods=["PUT"])
@@ -63,5 +63,5 @@ def delete_source_route():
         delete_source(request_data["source_id"])
         return jsonify({"message": "Source deleted successfully"}), 201
     except Exception as e:
-        return jsonify({"error": f"Source deletion failed \nError: {e.message}"}), 400
+        return jsonify({"error": f"Source deletion failed \nError: {e}"}), 400
 

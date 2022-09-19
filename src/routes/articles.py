@@ -9,14 +9,14 @@ app_articles = Blueprint("articles_app", __name__)
 @app_articles.route("/articles", methods=["GET"])
 def get_articles_route():
     try:
-        return jsonify(get_all_articles())
+        return [article.__to_json__() for article in get_all_articles()]
     except Exception as e:
-        return jsonify({"error": f"Error getting articles \nError: {e.message}"}), 400
+        return jsonify({"error": f"Error getting articles \nError: {e}"}), 400
     
 ## Get Articles by Article Id
-@app_articles.route("/articles/<string:article_id>", methods=["GET"])
+@app_articles.route("/article/<string:article_id>", methods=["GET"])
 def get_article_route(article_id: str):
     try:
-        return jsonify(get_article_by_id(article_id))
+        return jsonify(get_article_by_id(article_id).__to_json__())
     except Exception as e:
-        return jsonify({"error": f"Error getting articles for news source {article_id} \nError: {e.message}"}), 400
+        return jsonify({"error": f"Error getting articles for news source {article_id} \nError: {e}"}), 400

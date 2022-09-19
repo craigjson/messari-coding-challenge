@@ -18,23 +18,23 @@ def save_pattern():
         create_pattern(request_data["id"], request_data["pattern"])
         return jsonify({"message": "Pattern created successfully"}), 201
     except Exception as e:
-        return jsonify({"error": "Pattern creation failed \nError: {e.message}"}), 400
+        return jsonify({"error": f"Pattern creation failed \nError: {e}"}), 400
 
 ## Get All Patterns
 @app_pattern.route("/patterns")
 def get_patterns_route():
     try:
-        return get_patterns()
+        return jsonify([pattern.__to_json__() for pattern in get_patterns()])
     except Exception as e:
-        return jsonify({"error": "Error getting patterns \nError: {e.message}"}), 400
+        return jsonify({"error": f"Error getting patterns \nError: {e}"}), 400
 
 ## Get Pattern by Id
 @app_pattern.route("/pattern/<string:pattern_id>")
 def get_pattern_route(pattern_id: str):
     try:
-        return get_pattern(pattern_id)
+        return jsonify(get_pattern(pattern_id).__to_json__())
     except Exception as e:
-        return jsonify({"error": f"Error getting pattern {pattern_id} \nError: {e.message}"}), 400
+        return jsonify({"error": f"Error getting pattern {pattern_id} \nError: {e}"}), 400
 
 ## Update Pattern by Id
 @app_pattern.route("/pattern/update/", methods=["PUT"])
@@ -51,7 +51,7 @@ def update_pattern_route():
         update_pattern(request_data["id"], request_data["pattern"])
         return jsonify({"message": "Pattern updated successfully"}), 201
     except Exception as e:
-        return jsonify({"error": "Pattern update failed \nError: {e.message}"}), 400
+        return jsonify({"error": f"Pattern update failed \nError: {e}"}), 400
 
 ## Delete Pattern by Id
 @app_pattern.route("/pattern/delete/")

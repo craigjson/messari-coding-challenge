@@ -1,14 +1,15 @@
 from typing import Dict, List
-from ..models.models import  Article
-from ..data.data import articles
+from ..data.models import  Article
+from ..data.mock_data import articles
+from ..data.query import query_articles, query_artcile
 
 # Get all articles
-def get_all_articles() -> Dict[str, Article]:
-    return articles
+def get_all_articles() -> List[Article]:
+    return query_articles()
 
 # Get Article By Id
 def get_article_by_id(article_id: str) -> Article:
-    return articles[article_id]
+    return query_artcile(article_id)
     
 # Delete Article by Id
 def delete_article(article_id: str):
