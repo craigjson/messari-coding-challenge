@@ -1,6 +1,6 @@
 from data.data import news_sources
 from models.models import NewsSource, Pattern
-from typing import List
+from typing import Dict, List
 
 ## Create News Source
 def save_news_source(source_id: str, url: str, patterns: List[Pattern]):
@@ -12,11 +12,11 @@ def save_news_source(source_id: str, url: str, patterns: List[Pattern]):
 
 ## Get NewsSource by Id
 def get_source(source_id: str):
-   return news_sources[source_id].__to_json__()
+   return news_sources[source_id]
     
 ## Get All NewsSources
-def get_sources():
-   return [f"<p>{source.__to_json__()}</p>" for source in news_sources]
+def get_sources() -> Dict[str, NewsSource]:
+   return news_sources
 
 ## Update NewsSource
 def update_source(source_id: str, url: str, patterns: List[Pattern]):
@@ -27,4 +27,3 @@ def update_source(source_id: str, url: str, patterns: List[Pattern]):
 ## Delete NewsSource
 def delete_source(source_id: str):
     del news_sources[source_id]
-    return f"Source {source_id} deleted"

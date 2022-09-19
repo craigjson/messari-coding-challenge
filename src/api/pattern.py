@@ -11,11 +11,11 @@ def create_pattern(pattern_id: str, pattern: RegexPattern):
 
 ## Get All Patterns
 def get_patterns():
-    return [f"<p>{pattern.__to_json__()}</p>" for pattern in patterns]
+    return patterns
 
 ## Get Pattern by Id
 def get_pattern(pattern_id: str):
-    return patterns[pattern_id].__to_json__()
+    return patterns[pattern_id]
 
 ## Update Pattern by Id
 def update_pattern(pattern_id: str, pattern: RegexPattern):
