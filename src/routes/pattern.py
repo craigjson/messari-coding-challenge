@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from api.pattern import create_pattern, get_patterns, get_pattern, update_pattern, delete_pattern
+from ..api.pattern import create_pattern, get_patterns, get_pattern, update_pattern, delete_pattern
 
 app_pattern = Blueprint("pattern_app", __name__)
 

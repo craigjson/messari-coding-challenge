@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from api.news_source import save_news_source, get_source, get_sources, update_source, delete_source
+from ..api.news_source import save_news_source, get_source, get_sources, update_source, delete_source
 
 app_news_source = Blueprint("news_source_app", __name__)
 

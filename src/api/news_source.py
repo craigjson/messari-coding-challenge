@@ -1,5 +1,5 @@
-from data.data import news_sources
-from models.models import NewsSource, Pattern
+from ..data.data import news_sources
+from ..models.models import NewsSource, Pattern
 from typing import Dict, List
 
 ## Create News Source

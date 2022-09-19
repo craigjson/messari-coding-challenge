@@ -1,6 +1,6 @@
-from typing import List, Dict, Pattern as RegexPattern
-from models.models import Article, NewsSource, Pattern
 import re
+from typing import Dict
+from ..models.models import Article, NewsSource, Pattern
 
 articles: Dict[str, Article] = {
     "1": Article("1", "Title 1", "Content 1", "2020-01-01"),

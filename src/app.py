@@ -1,7 +1,7 @@
 from flask import Flask
-from routes.news_source import app_news_source
-from routes.pattern import app_pattern
-from routes.articles import app_articles
+from .routes.news_source import app_news_source
+from .routes.pattern import app_pattern
+from .routes.articles import app_articles
 
 # Initalize Flask App
 app = Flask(__name__)

@@ -1,6 +1,6 @@
 from typing import Dict, List
-from models.models import  Article
-from data.data import articles
+from ..models.models import  Article
+from ..data.data import articles
 
 # Get all articles
 def get_all_articles() -> Dict[str, Article]:

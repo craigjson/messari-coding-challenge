@@ -1,5 +1,5 @@
-from data.data import patterns
-from models.models import Pattern
+from ..data.data import patterns
+from ..models.models import Pattern
 from typing import List, Pattern as RegexPattern
 
 ## Create Pattern
