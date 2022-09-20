@@ -1,12 +1,14 @@
 from flask import Flask
 from routes.news_source import app_news_source
 from routes.pattern import app_pattern
-from routes.articles import app_articles
+from routes.article import app_article
+
 from scripts.load_mock_data import load_mock_data
 
 # Load Postgres Data
 try:
-    load_mock_data()
+    #load_mock_data()
+    print()
 except Exception as e:
     print(e)
 
@@ -21,4 +23,4 @@ def hello_world():
 # Register Blueprints
 app.register_blueprint(app_news_source)
 app.register_blueprint(app_pattern)
-app.register_blueprint(app_articles)
+app.register_blueprint(app_article)

@@ -39,6 +39,14 @@ def save_article(id, title, content, published):
     session.add(article)
     session.commit()
     session.close()
+    
+# Delete Article by Id
+def delete_article(id):
+    session = Session()
+    article = session.query(Article).filter(Article.id == id).first()
+    session.delete(article)
+    session.commit()
+    session.close()
 
 ## News Source Queries
 
