@@ -4,7 +4,7 @@ from api.pattern import create_pattern, get_patterns, get_pattern, update_patter
 app_pattern = Blueprint("pattern_app", __name__)
 
 ## Create Pattern
-@app_pattern.route("/pattern/save/", methods=["POST"])
+@app_pattern.route("/pattern/create/", methods=["POST"])
 def save_pattern():
     request_data = request.get_json()
     if not request_data:

@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from api.news_source import save_news_source, get_source, get_sources, update_source, delete_source
+from api.news_source import create_news_source, get_source, get_sources, update_source, delete_source
 
 app_news_source = Blueprint("news_source_app", __name__)
 
@@ -15,7 +15,7 @@ def save_news_source():
         return jsonify({"error": "No source url provided"}), 400
     
     try:
-        save_news_source(request_data["id"], request_data["url"], request_data["patterns"])
+        create_news_source(request_data["id"], request_data["url"])
         return jsonify({"message": "Source created successfully"}), 201
     except Exception as e:
         return jsonify({"error": f"Error creating source \nError: {e}"}), 400
@@ -37,7 +37,7 @@ def get_sources_route():
         return jsonify({"error": f"Error getting sources \nError: {e}"}), 400
 
 ## Update NewsSource
-@app_news_source.route("/source/update/", methods=["PUT"])
+@app_news_source.route("/source/update/", methods=["POST"])
 def update_source():
     request_data = request.get_json()
     if not request_data:

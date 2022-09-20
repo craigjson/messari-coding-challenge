@@ -1,5 +1,5 @@
 from typing import Dict, List
-from data.models import  Article
+from data.models.article import  Article
 from data.mock_data import articles
 from data.query import query_articles, query_artcile
 
