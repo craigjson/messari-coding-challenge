@@ -1,23 +1,26 @@
-from sqlalchemy import Column, String, Date
+from sqlalchemy import Column, String, DateTime, ForeignKey
 from ..postgres import Base
-
-from typing import List
 
 class Article(Base):
     __tablename__ = 'Article'
     
     id = Column(String, primary_key=True)
+    source_id = Column(String, ForeignKey('Source.id'))
     title =  Column(String)
     content = Column(String)
-    published = Column(Date)
+    link = Column(String)
+    published = Column(DateTime)
+    last_updated = Column(DateTime)
         
     def __repr__(self):
-        return f"Article(id={self.id}, title={self.title}, content={self.content}, published={self.published})"
+        return f"Article(id={self.id}, title={self.title}, content={self.content}, link={self.link}, published={self.published}, last_updated={self.last_updated})"
             
     def __to_json__(self):
         return {
             'id': self.id,
             'title': self.title,
             'content': self.content,
-            'published': self.published
+            'link': self.link,
+            'published': self.published,
+            'last_updated': self.last_updated
         }
