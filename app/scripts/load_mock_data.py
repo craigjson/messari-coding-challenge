@@ -1,7 +1,7 @@
 from datetime import date
 
-from ..data.postgres import Base, Session, engine
-from ..data.mock_data import articles, news_sources, patterns
+from data.postgres import Base, Session, engine
+from data.mock_data import articles, news_sources, patterns
 
 
 def load_mock_data():

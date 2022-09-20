@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from ..api.articles import get_all_articles, get_article_by_id
+from api.articles import get_all_articles, get_article_by_id
 
 app_articles = Blueprint("articles_app", __name__)
 

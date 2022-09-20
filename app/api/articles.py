@@ -1,7 +1,7 @@
 from typing import Dict, List
-from ..data.models import  Article
-from ..data.mock_data import articles
-from ..data.query import query_articles, query_artcile
+from data.models import  Article
+from data.mock_data import articles
+from data.query import query_articles, query_artcile
 
 # Get all articles
 def get_all_articles() -> List[Article]:

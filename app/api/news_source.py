@@ -1,6 +1,6 @@
-from ..data.mock_data import news_sources
-from ..data.models import NewsSource, Pattern
-from ..data.query import query_news_sources, query_news_source, save_news_source, update_news_source, delete_news_source
+from data.mock_data import news_sources
+from data.models import NewsSource, Pattern
+from data.query import query_news_sources, query_news_source, save_news_source, update_news_source, delete_news_source
 from typing import Dict, List
 
 ## Create News Source

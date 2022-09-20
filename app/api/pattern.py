@@ -1,7 +1,7 @@
 from turtle import update
-from ..data.mock_data import patterns
-from ..data.models import Pattern
-from ..data.query import query_patterns, query_pattern, save_pattern, update_pattern, delete_pattern
+from data.mock_data import patterns
+from data.models import Pattern
+from data.query import query_patterns, query_pattern, save_pattern, update_pattern, delete_pattern
 from typing import List, Pattern as RegexPattern
 
 ## Create Pattern
