@@ -1,6 +1,8 @@
 import re
 from typing import List
-from .models import Article, NewsSource, Pattern
+from data.models.article import Article
+from data.models.pattern import Pattern
+from data.models.news_source import NewsSource
 
 articles = [
     Article(id="1", title="Title 1", content="Content 1", published="2020-01-01"),

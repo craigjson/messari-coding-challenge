@@ -1,7 +1,8 @@
 from typing import List
-from .models import Article, NewsSource, Pattern
+from data.models.article import Article
+from data.models.pattern import Pattern
+from data.models.news_source import NewsSource
 from .postgres import Session
-
 
 ## Article Queries
 
@@ -46,8 +47,7 @@ def save_news_source(source_id: str, url: str, patterns=None):
     session = Session()
     news_source = NewsSource(
         id = source_id,
-        url = url,
-        patterns = patterns
+        url = url
     )
     session.add(news_source)
     session.commit()
@@ -89,13 +89,11 @@ def delete_news_source(id):
 ## Pattern Queries
 
 # Create Pattern
-def save_pattern(id, name, regex, news_source_id):
+def save_pattern(id: str, regex: str):
     session = Session()
     pattern = Pattern(
         id = id,
-        name = name,
         regex = regex,
-        news_source_id = news_source_id
     )
     session.add(pattern)
     session.commit()
