@@ -1,7 +1,7 @@
 
 # Transform RSS Feeds to Articles
 from typing import List
-from models.models import Article, Pattern
+from data.models import Article, Pattern
 from requests import get
 from etl.website import extract_articles_from_website
 

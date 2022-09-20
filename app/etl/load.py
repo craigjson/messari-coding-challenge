@@ -1,7 +1,7 @@
 # Load Articles into PostgresSQL
 from typing import List
-from models.models import Article
-from ..data.query import create_article
+from data.models import Article
+from data.query import create_article
 
 ## Load Article into PostgresSQL
 def load_article_into_postgres(id: str, title: str, content: str, published: str):
