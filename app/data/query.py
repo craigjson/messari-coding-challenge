@@ -29,6 +29,12 @@ def query_article_by_title(title: str) -> Article:
     session.close()
     return article
 
+def query_articles_without_matches() -> List[Article]:
+    session = Session()
+    articles = session.query(Article).filter(Article.has_match == False).all()
+    session.close()
+    return list(articles)
+
 # Get Article by URL
 def query_article_by_title(url: str) -> Article:
     session = Session()
@@ -48,6 +54,18 @@ def delete_article(id: str):
     session = Session()
     article = session.query(Article).filter(Article.id == id).first()
     session.delete(article)
+    session.commit()
+    session.close()
+    
+def update_article(article: Article):
+    session = Session()
+    session.query(Article).filter(Article.id == article.id).update({
+        Article.title: article.title,
+        Article.url: article.url,
+        Article.date: article.date,
+        Article.has_match: article.has_match,
+        Article.news_source_id: article.news_source_id,
+    })
     session.commit()
     session.close()
 
