@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime, ForeignKey
+from sqlalchemy import Column, String, DateTime, ForeignKey, Boolean
 from ..postgres import Base
 
 class Article(Base):
@@ -10,6 +10,7 @@ class Article(Base):
     content = Column(String)
     published = Column(DateTime)
     last_updated = Column(DateTime)
+    has_match = Column(Boolean, default=False)
         
     def __repr__(self):
         return f"Article(id={self.id}, title={self.title}, content={self.content}, published={self.published}, last_updated={self.last_updated})"

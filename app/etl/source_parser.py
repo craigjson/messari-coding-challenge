@@ -7,7 +7,7 @@ from util.constants import rss_feed_pull_cadence_in_seconds
 from util.crawl import CrawlStatus
 from util.time import is_time_between_greater_than
 
-from etl.html import parse_and_match_entry_html_content
+from etl.html import parse_html_for_article_content, html_content_matches_pattern
 from etl.rss import download_and_parse_rss_feed, process_rss_entry
 
 
@@ -34,17 +34,18 @@ def parse_news_source(news_source: NewsSource) -> List[Article]:
                 entry_content_as_html = process_rss_entry(rss_entry)
                 
                 if entry_content_as_html:
-                    article_content = parse_and_match_entry_html_content(entry_content_as_html)
-                    if article_content:
-                            valid_articles.append(
-                            Article(
-                                id = rss_entry['link'],
-                                source_id = news_source.id,
-                                title = rss_entry['title'],
-                                content = article_content,
-                                published = rss_entry['published'],
-                                last_updated = datetime.now())
-                            )
+                    article_content = parse_html_for_article_content(entry_content_as_html)
+                    article =  Article(
+                                    id = rss_entry['link'],
+                                    source_id = news_source.id,
+                                    title = rss_entry['title'],
+                                    content = article_content,
+                                    published = rss_entry['published'],
+                                    last_updated = datetime.now()
+                                )
+                    if html_content_matches_pattern(article_content):
+                            article.has_match = True
+                    valid_articles.append(article)
             return valid_articles
         except Exception as e:
             print(f"Failed to parse news source: {news_source.url} with\nError: {e}\n")

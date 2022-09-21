@@ -19,7 +19,8 @@ def download_and_parse_rss_feed(rss_feed_url: str) -> List[Dict]:
 
 # Check that the rss_entry has a link and that we have never visited it before
 def should_parse_rss_entry(rss_entry: Dict) -> bool:
-    return ('content' in rss_entry or 'link' in rss_entry) and rss_entry['link'] not in url_visited_set
+    return ('content' in rss_entry or 'link' in rss_entry) \
+            and rss_entry['link'] not in url_visited_set
     
 def process_rss_entry(rss_entry: Dict) -> str:
     if should_parse_rss_entry(rss_entry):

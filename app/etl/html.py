@@ -18,22 +18,16 @@ def get_raw_html_for_url(url: str) -> str:
 
 # Parse the HTML from the RSS Entry and return the article content
 def parse_html_for_article_content(html: str) -> str:
-    soup = BeautifulSoup(html, 'lxml')
-    article_content = ""
-    for paragraph in soup.find_all('p'):
-        article_content += paragraph.text
-    return article_content
-
+    try:
+        soup = BeautifulSoup(html, 'lxml')
+        article_content = ""
+        for paragraph in soup.find_all('p'):
+            article_content += paragraph.text
+        return article_content
+    except Exception as e:
+        print(f"Failed to parse article content with\nError: {e}\n")
+        
 # Determine if the html content matches any of the configured patterns
 def html_content_matches_pattern(html: str) -> bool:
     article_content = parse_html_for_article_content(html)
     return article_content_matches_pattern(article_content)
-
-# Parse and match the entry html content with configured patterns
-def parse_and_match_entry_html_content(html: str) -> str:
-    try:
-        article_content = parse_html_for_article_content(html)
-        if article_content_matches_pattern(article_content):
-            return article_content
-    except Exception as e:
-        print(f"Failed to parse article content with\nError: {e}\n")
