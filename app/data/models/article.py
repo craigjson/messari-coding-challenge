@@ -1,5 +1,6 @@
 from sqlalchemy import Column, String, DateTime, ForeignKey, Boolean
-from ..postgres import Base
+from sqlalchemy.orm import relationship
+from data.postgres import Base
 
 class Article(Base):
     __tablename__ = 'Article'
@@ -11,6 +12,7 @@ class Article(Base):
     published = Column(DateTime)
     last_updated = Column(DateTime)
     has_match = Column(Boolean, default=False)
+    patterns = relationship("Pattern", secondary="ArticlePatternMatch", backref="Article")
         
     def __repr__(self):
         return f"Article(id={self.id}, title={self.title}, content={self.content}, published={self.published}, last_updated={self.last_updated})"

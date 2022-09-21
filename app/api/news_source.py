@@ -17,8 +17,8 @@ def get_sources() -> List[NewsSource]:
     return query_news_sources()
 
 ## Update NewsSource
-def update_source(source_id: str, url: str, last_processed: datetime, status: int):
-    update_news_source(source_id, url, last_processed, status)
+def update_source(news_source: NewsSource):
+    update_news_source(news_source)
 
 ## Delete NewsSource
 def delete_source(source_id: str):

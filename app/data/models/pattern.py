@@ -1,7 +1,5 @@
 from sqlalchemy import Column, String
-from ..postgres import Base
-
-from typing import List
+from data.postgres import Base
 
 class Pattern(Base):
     __tablename__ = 'Pattern'

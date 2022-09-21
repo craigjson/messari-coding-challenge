@@ -4,13 +4,17 @@ from routes.pattern import app_pattern
 from routes.article import app_article
 
 from scripts.load_mock_data import load_mock_data
+from dotenv import load_dotenv
 
 # Load Postgres Data
 try:
-    #load_mock_data()
+    load_mock_data()
     print()
 except Exception as e:
     print(e)
+    
+# Attempt to load .env file
+load_dotenv()
 
 # Initalize Flask App
 app = Flask(__name__)
