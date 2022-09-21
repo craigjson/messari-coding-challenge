@@ -6,7 +6,7 @@ from data.models.news_source import NewsSource
 from data.query import update_news_source
 from util.crawl import CrawlStatus
 
-from etl.parser import parse_news_source
+from etl.source_parser import parse_news_source
 
 
 # Run ETL Feed

@@ -34,7 +34,6 @@ def parse_news_source(news_source: NewsSource) -> List[Article]:
                 if entry_content_as_html:
                     article_content = parse_and_match_entry_html_content(entry_content_as_html)
                     if article_content:
-                            print(f"\nMatched Article:\nSource: {news_source.id}\nTitle: {rss_entry.title}\nLink: {rss_entry.link}\n")
                             valid_articles.append(
                             Article(
                                 id = rss_entry['link'],

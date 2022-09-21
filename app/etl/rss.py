@@ -19,8 +19,6 @@ def download_and_parse_rss_feed(rss_feed_url: str) -> List[Dict]:
 
 # Check that the rss_entry has a link and that we have never visited it before
 def should_parse_rss_entry(rss_entry: Dict) -> bool:
-    if rss_entry['link'] in url_visited_set:
-        print(f"Skipping URL: {rss_entry['link']}\n")
     return ('content' in rss_entry or 'link' in rss_entry) and rss_entry['link'] not in url_visited_set
     
 def process_rss_entry(rss_entry: Dict) -> str:
@@ -33,5 +31,6 @@ def process_rss_entry(rss_entry: Dict) -> str:
                 entry_content_as_html = rss_entry['content'][0]['value']
         except Exception as e:
             print(f"Failed to download raw HTML for URL with\nError: {e}\n")
+
         url_visited_set.add(rss_entry['link'])
         return entry_content_as_html
