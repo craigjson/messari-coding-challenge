@@ -53,15 +53,17 @@ def extract_transform_load_feed():
                 )
                 continue
             
-        log_articles_to_console(articles)
+        log_matched_articles_to_console(articles)
         
         # Load articles into the Database
         #load_articles_into_postgres(articles)
     except Exception as e:
         print(f"Error running ETL Feed: {e}")
 
-def log_articles_to_console(articles: List[Article]):
+def log_matched_articles_to_console(articles: List[Article]):
     for article in articles:
-        print(f"Title: {article.title}")
-        print(f"Published: {article.published}")
-        print(f"Content: {article.content}")
+        if article.has_match:
+            print()
+            print(f"Title: {article.title}")
+            print(f"Published: {article.published}")
+            print(f"Content: {article.content}")
