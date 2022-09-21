@@ -11,15 +11,15 @@ class Article(Base):
     content = Column(String)
     published = Column(DateTime)
     last_updated = Column(DateTime)
-    has_match = Column(Boolean, default=False)
     patterns = relationship("Pattern", secondary="ArticlePatternMatch", backref="Article")
         
     def __repr__(self):
-        return f"Article(id={self.id}, title={self.title}, content={self.content}, published={self.published}, last_updated={self.last_updated})"
+        return f"Article(id={self.id}, source_id={self.source_id} title={self.title}, content={self.content}, published={self.published}, last_updated={self.last_updated})"
             
     def __to_json__(self):
         return {
             'id': self.id,
+            'source_id': self.source_id,
             'title': self.title,
             'content': self.content,
             'published': self.published,

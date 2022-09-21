@@ -2,6 +2,7 @@
 from typing import Dict, List
 
 from feedparser import parse
+
 from util.url_cache import is_containted_in_url_visited_cache, add_to_url_visited_cache
 
 from etl.html import get_raw_html_for_url
@@ -31,8 +32,7 @@ def process_rss_entry(rss_entry: Dict) -> str:
             else:
                 entry_content_as_html = rss_entry['content'][0]['value']
         except Exception as e:
-            print(f"Failed to download raw HTML for URL with\nError: {e}\n")
-            
+            print(f"Failed to download raw HTML for URL with\nError: {e}\n")  
         # Add to Redis Cache
         add_to_url_visited_cache(rss_entry['link'])
         return entry_content_as_html

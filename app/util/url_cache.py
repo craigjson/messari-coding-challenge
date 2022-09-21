@@ -1,6 +1,7 @@
 from redis import Redis
 import os
 
+
 cache_name = 'url_visited_cache'
 
 try:
