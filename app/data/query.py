@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import List
+from app.util.crawl import CrawlStatus
 from data.models.article import Article
 from data.models.pattern import Pattern
 from data.models.news_source import NewsSource
@@ -77,13 +78,24 @@ def query_news_source(id) -> NewsSource:
     return news_source
 
 # Update News Source
-def update_news_source(id: str, url: str, last_processed: datetime, status: int):
+def update_news_source(id: str, url: str, last_processed: datetime, status: CrawlStatus):
     session = Session()
     session.query(NewsSource).filter(NewsSource.id == id).\
         update({
             NewsSource.url: url, 
             NewsSource.last_processed: last_processed, 
-            NewsSource.status: status})
+            NewsSource.status: status.value})
+    session.commit()
+    session.close()
+    
+# Update News Source
+def update_news_source(news_source: NewsSource):
+    session = Session()
+    session.query(NewsSource).filter(NewsSource.id == news_source.id).\
+        update({
+            NewsSource.url: news_source.url, 
+            NewsSource.last_processed: news_source.last_processed, 
+            NewsSource.status: news_source.status.value})
     session.commit()
     session.close()
 

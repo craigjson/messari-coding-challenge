@@ -17,10 +17,12 @@ from etl.rss import download_and_parse_rss_feed, process_rss_entry
 # configured in util/constants.py
 def should_parse_news_source(news_source: NewsSource) -> bool:
     last_run_status = CrawlStatus(news_source.status)
-    if last_run_status == CrawlStatus.FAILED or is_time_between_greater_than(datetime.now(), news_source.last_processed, rss_feed_pull_cadence_in_seconds):
-        return True
-    else:
-        return False
+    return last_run_status == CrawlStatus.FAILED \
+        or last_run_status == CrawlStatus.NOT_STARTED \
+        or is_time_between_greater_than(
+            datetime.now(),
+            news_source.last_processed, 
+            rss_feed_pull_cadence_in_seconds)
     
 # Parse News Source and return valid articles
 def parse_news_source(news_source: NewsSource) -> List[Article]:
