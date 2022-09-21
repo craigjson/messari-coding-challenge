@@ -28,8 +28,8 @@ def update_pattern_by_id(pattern_id: str, pattern: str):
     # After we update a pattern, retrieve all articles that
     # 1. have no matches
     # 2. have a match with the pattern we just updated
-    # determine if the article still matches the pattern
-    # 3. update the article's has_match field appropriately
+    # 3. determine if the article still matches the pattern
+    # 4. update the article's has_match field appropriately
     
 ## Delete Pattern by Id
 def delete_pattern_by_id(pattern_id: str):

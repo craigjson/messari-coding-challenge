@@ -2,7 +2,7 @@
 from typing import Dict, List
 
 from feedparser import parse
-from util.url_cache import url_visited_set
+from util.url_cache import url_visited_cache
 
 from etl.html import get_raw_html_for_url
 
@@ -20,7 +20,7 @@ def download_and_parse_rss_feed(rss_feed_url: str) -> List[Dict]:
 # Check that the rss_entry has a link and that we have never visited it before
 def should_parse_rss_entry(rss_entry: Dict) -> bool:
     return ('content' in rss_entry or 'link' in rss_entry) \
-            and rss_entry['link'] not in url_visited_set
+            and rss_entry['link'] not in url_visited_cache
     
 def process_rss_entry(rss_entry: Dict) -> str:
     if should_parse_rss_entry(rss_entry):
@@ -33,5 +33,5 @@ def process_rss_entry(rss_entry: Dict) -> str:
         except Exception as e:
             print(f"Failed to download raw HTML for URL with\nError: {e}\n")
 
-        url_visited_set.add(rss_entry['link'])
+        url_visited_cache.add(rss_entry['link'])
         return entry_content_as_html
