@@ -16,6 +16,10 @@ services:
       - db
     ports:
       - "8000:8000"
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
   db:
     image: postgres:14.1-alpine
     restart: always
