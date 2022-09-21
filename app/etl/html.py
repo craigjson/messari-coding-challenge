@@ -22,12 +22,11 @@ def parse_html_for_article_content(html: str) -> str:
         soup = BeautifulSoup(html, 'lxml')
         article_content = ""
         for paragraph in soup.find_all('p'):
-            article_content += paragraph.text
+            article_content += f"{paragraph.text}\n"
         return article_content
     except Exception as e:
         print(f"Failed to parse article content with\nError: {e}\n")
         
 # Determine if the html content matches any of the configured patterns
 def html_content_matches_pattern(html: str) -> bool:
-    article_content = parse_html_for_article_content(html)
-    return article_content_matches_pattern(article_content)
+    return article_content_matches_pattern(html)

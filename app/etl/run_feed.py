@@ -47,7 +47,7 @@ def extract_transform_load_feed():
                 update_news_source(news_source)
                 continue
             
-        log_matched_articles_to_console(articles)
+        #log_matched_articles_to_console(articles)
         
         # Load articles into the Database
         #load_articles_into_postgres(articles)
