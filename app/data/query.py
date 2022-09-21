@@ -54,19 +54,6 @@ def delete_article(id: str):
 ## News Source Queries
 
 # Save News Source
-def save_news_source(source_id: str, url: str, last_processed: datetime, status: CrawlStatus):
-    session = Session()
-    news_source = NewsSource(
-        id=source_id, 
-        url=url, 
-        last_processed=last_processed, 
-        status=status.value
-    )
-    session.add(news_source)
-    session.commit()
-    session.close()
-
-# Save News Source
 def save_news_source(news_source: NewsSource):
     session = Session()
     session.add(news_source)
@@ -86,17 +73,6 @@ def query_news_source(id) -> NewsSource:
     news_source = session.query(NewsSource).filter(NewsSource.id == id).first()
     session.close()
     return news_source
-
-# Update News Source
-def update_news_source(id: str, url: str, last_processed: datetime, status: CrawlStatus):
-    session = Session()
-    session.query(NewsSource).filter(NewsSource.id == id).\
-        update({
-            NewsSource.url: url, 
-            NewsSource.last_processed: last_processed, 
-            NewsSource.status: status.value})
-    session.commit()
-    session.close()
     
 # Update News Source
 def update_news_source(news_source: NewsSource):
@@ -120,17 +96,6 @@ def delete_news_source(id: str):
 ## Pattern Queries
 
 # Create Pattern
-def save_pattern(id: str, regex: str):
-    session = Session()
-    pattern = Pattern(
-        id = id,
-        regex = regex,
-    )
-    session.add(pattern)
-    session.commit()
-    session.close()
-
-# Create Pattern
 def save_pattern(pattern: Pattern):
     session = Session()
     session.add(pattern)
@@ -150,16 +115,6 @@ def query_pattern(id: str) -> Pattern:
     pattern = session.query(Pattern).filter(Pattern.id == id).first()
     session.close()
     return pattern
-
-# Update Pattern
-def update_pattern(id: str, regex: str):
-    session = Session()
-    session.query(Pattern).filter(Pattern.id == id).\
-        update({
-            Pattern.regex: regex, 
-        })
-    session.commit()
-    session.close()
     
 # Update Pattern
 def update_pattern(pattern: Pattern):

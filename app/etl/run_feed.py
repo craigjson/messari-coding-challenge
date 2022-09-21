@@ -36,21 +36,15 @@ def extract_transform_load_feed():
         for news_source in news_sources:
             try:
                 articles.extend(parse_news_source(news_source))
-                update_news_source(
-                    news_source.id, 
-                    news_source.url, 
-                    datetime.now(),
-                    CrawlStatus.SUCCESS
-                )
+                news_source.status = CrawlStatus.SUCCESS
+                news_source.last_processed = datetime.now()
+                update_news_source(news_source)
                 print(f"Successfully parsed news source: {news_source.url}\n")
             except Exception as e:
                 print(f"Failed to parse news source {news_source.id} with\nError: {e}\n")
-                update_news_source(
-                    news_source.id, 
-                    news_source.url, 
-                    datetime.now(),
-                    CrawlStatus.FAILED
-                )
+                news_source.status = CrawlStatus.FAILED
+                news_source.last_processed = datetime.now()
+                update_news_source(news_source)
                 continue
             
         log_matched_articles_to_console(articles)
