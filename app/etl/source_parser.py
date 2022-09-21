@@ -3,7 +3,7 @@ from typing import List
 
 from data.models.article import Article
 from data.models.news_source import NewsSource
-from data.query import  save_article
+from data.query import save_article
 from util.constants import rss_feed_pull_cadence_in_seconds
 from util.crawl import CrawlStatus
 from util.time import is_time_between_greater_than
@@ -26,7 +26,7 @@ def should_parse_news_source(news_source: NewsSource) -> bool:
             news_source.last_processed, 
             rss_feed_pull_cadence_in_seconds)
     
-# Parse News Source and return valid articles
+# Parse News Source and save all valid articles to the database
 def parse_news_source(news_source: NewsSource) -> List[Article]:
     if (should_parse_news_source(news_source)):
         try:
