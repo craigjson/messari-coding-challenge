@@ -4,6 +4,8 @@ from data.postgres import Base, Session, engine
 from data.models.article import Article
 from data.models.pattern import Pattern
 from data.models.news_source import NewsSource
+from data.models.article_pattern_match import ArticlePatternMatch
+
 
 patterns = [
     Pattern(
@@ -69,35 +71,12 @@ news_sources = [
     ),
 ]
 
-articles = [
-    Article(id="1", 
-            source_id="decrypt",
-            title="Title 1", 
-            content="Content 1", 
-            link="link1", 
-            published="2020-01-01"
-    ),
-    Article(id="2",
-            source_id="blockworks",
-            title="Title 2", 
-            content="Content 2", 
-            link="link2", 
-            published="2020-01-02"
-    ),
-    Article(id="3", 
-            source_id="dailyhodl", 
-            title="Title 3", 
-            content="Content 3", 
-            link="link3", 
-            published="2020-01-03"
-    )
-    ]
-
 def create_db():
-    Base.metadata.create_all(engine)
     session = Session()
+    Base.metadata.create_all(engine)
     session.commit()
     session.close()
+    print("created DB")
     
 def create_sources():
     session = Session()
@@ -118,19 +97,9 @@ def create_patterns():
         print("Patterns already exists")
     finally:
         session.close()
-    
-def create_articles():
-    session = Session()
-    try:
-        [session.add(article) for article in articles]
-        session.commit()
-    except Exception as e:
-        print(e)
-    finally:
-        session.close()
 
 def load_mock_data():
     #create_db()
     #create_sources()
     #create_patterns()
-    create_articles()
+    print()
