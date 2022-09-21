@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List
 
-from api.news_source import get_sources, get_source
+from data.query import query_news_source, query_news_sources
 from data.models.article import Article
 from data.models.news_source import NewsSource
 from data.query import update_news_source
@@ -10,7 +10,7 @@ from util.crawl import CrawlStatus
 from etl.source_parser import parse_news_source
 
 def run_etl_for_single_source(source_id: str) -> List[Article]:
-    news_source: NewsSource = get_source(source_id)
+    news_source: NewsSource = query_news_source(source_id)
     try:
         articles: List[Article] = parse_news_source(news_source)
         news_source.status = CrawlStatus.SUCCESS
@@ -29,7 +29,7 @@ def run_etl_for_single_source(source_id: str) -> List[Article]:
 def extract_transform_load_feed():
     try:
         # Retrieve news source URLs from the Database
-        news_sources: List[NewsSource] = get_sources()
+        news_sources: List[NewsSource] = query_news_sources()
         
         articles = []
         # Parse News Sources for Articles
@@ -47,7 +47,7 @@ def extract_transform_load_feed():
                 update_news_source(news_source)
                 continue
             
-        #log_matched_articles_to_console(articles)
+        log_matched_articles_to_console(articles)
         
         # Load articles into the Database
         #load_articles_into_postgres(articles)
