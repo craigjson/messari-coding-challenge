@@ -2,7 +2,7 @@ from sqlalchemy import Column, String, DateTime, Integer
 from sqlalchemy.orm import relationship
 
 from util.crawl import CrawlStatus
-from ..postgres import Base
+from data.postgres import Base
 class NewsSource(Base):
     __tablename__ = 'Source'
 

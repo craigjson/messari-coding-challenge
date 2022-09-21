@@ -3,9 +3,6 @@ from typing import List
 from bs4 import BeautifulSoup
 from requests import get
 
-from etl.pattern_match import article_content_matches_pattern
-
-
 # Download raw HTML from the URL
 def get_raw_html_for_url(url: str) -> str:
     # Use some default headers to avoid 403 errors
@@ -26,7 +23,3 @@ def parse_html_for_article_content(html: str) -> str:
         return article_content
     except Exception as e:
         print(f"Failed to parse article content with\nError: {e}\n")
-        
-# Determine if the html content matches any of the configured patterns
-def html_content_matches_pattern(html: str) -> bool:
-    return article_content_matches_pattern(html)

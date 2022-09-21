@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, ForeignKey, Table
-from ..postgres import Base
+from data.postgres import Base
 
 class ArticlePatternMatch(Base):
     __tablename__ = 'ArticlePatternMatch'

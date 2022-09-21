@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
-from ..postgres import Base
+from data.postgres import Base
 
 class Article(Base):
     __tablename__ = 'Article'
