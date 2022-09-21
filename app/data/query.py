@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 from data.models.article import Article
 from data.models.pattern import Pattern
@@ -76,15 +77,15 @@ def query_news_source(id) -> NewsSource:
     return news_source
 
 # Update News Source
-def update_news_source(id, url, patterns):
+def update_news_source(id: str, url: str, last_processed: datetime, status: int):
     session = Session()
-    news_source = session.query(NewsSource).filter(NewsSource.id == id).first()
-    news_source.url = url
-    news_source.patterns = patterns
-    session.update(news_source)
+    session.query(NewsSource).filter(NewsSource.id == id).\
+        update({
+            NewsSource.url: url, 
+            NewsSource.last_processed: last_processed, 
+            NewsSource.status: status})
     session.commit()
     session.close()
-    return news_source
 
 # Delete News Source
 def delete_news_source(id):
@@ -124,14 +125,13 @@ def query_pattern(id) -> Pattern:
 # Update Pattern
 def update_pattern(id, name, regex, news_source_id):
     session = Session()
-    pattern = session.query(Pattern).filter(Pattern.id == id).first()
-    pattern.name = name
-    pattern.regex = regex
-    pattern.news_source_id = news_source_id
-    session.update(pattern)
+    session.query(Pattern).filter(Pattern.id == id).\
+        update({
+            Pattern.name: name, 
+            Pattern.regex: regex, 
+            Pattern.news_source_id: news_source_id
+        })
     session.commit()
-    session.close()
-    return pattern
 
 # Delete Pattern
 def delete_pattern(id):

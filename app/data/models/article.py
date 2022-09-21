@@ -8,19 +8,17 @@ class Article(Base):
     source_id = Column(String, ForeignKey('Source.id'))
     title =  Column(String)
     content = Column(String)
-    link = Column(String)
     published = Column(DateTime)
     last_updated = Column(DateTime)
         
     def __repr__(self):
-        return f"Article(id={self.id}, title={self.title}, content={self.content}, link={self.link}, published={self.published}, last_updated={self.last_updated})"
+        return f"Article(id={self.id}, title={self.title}, content={self.content}, published={self.published}, last_updated={self.last_updated})"
             
     def __to_json__(self):
         return {
             'id': self.id,
             'title': self.title,
             'content': self.content,
-            'link': self.link,
             'published': self.published,
             'last_updated': self.last_updated
         }
