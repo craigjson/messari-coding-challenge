@@ -26,6 +26,11 @@ def query_article(id: str) -> Article:
     article = session.query(Article).filter(Article.id == id).first()
     return article
 
+def get_articles_by_id(ids: List[str]) -> List[Article]:
+    session = getSession()
+    articles = session.query(Article).filter(Article.id.in_(ids)).all()
+    return list(articles)
+
 # Get Article by Title
 def query_article_by_title(title: str) -> Article:
     session = getSession()
@@ -37,6 +42,14 @@ def query_article_by_title(url: str) -> Article:
     session = getSession()
     article = session.query(Article).filter(Article.url == url).first()
     return article
+
+# Get All Articles for Pattern Id
+def query_articles_by_pattern_id(pattern_id: str) -> List[Article]:
+    session = getSession()
+    pattern_matches = session.query(ArticlePatternMatch).filter(ArticlePatternMatch.pattern_id == pattern_id).all()
+    article_ids = [pattern_match.article_id for pattern_match in pattern_matches]
+    articles = session.query(Article).filter(Article.id.in_(article_ids)).all()
+    return list(articles)
 
 # Create Article and save to DB
 def save_articles(articles: List[Article]):
@@ -113,6 +126,14 @@ def query_pattern(id: str) -> Pattern:
     session = getSession()
     pattern = session.query(Pattern).filter(Pattern.id == id).first()
     return pattern
+
+# Get All Patterns for Article Id
+def query_patterns_matched_by_article(article_id: str) -> List[Pattern]:
+    session = getSession()
+    pattern_matches = session.query(ArticlePatternMatch).filter(ArticlePatternMatch.article_id == article_id).all()
+    pattern_ids = [pattern_match.pattern_id for pattern_match in pattern_matches]
+    patterns = session.query(Pattern).filter(Pattern.id.in_(pattern_ids)).all()
+    return list(patterns)
     
 # Update Pattern
 def update_pattern(pattern: Pattern):
@@ -136,24 +157,6 @@ def save_article_pattern_match(article_pattern_match: ArticlePatternMatch):
     session = getSession()
     session.add(article_pattern_match)
     session.commit()
-    
-# Get All Article Pattern Matches
-def get_pattern_matches() -> List[ArticlePatternMatch]:
-    session = getSession()
-    pattern_matches = session.query(ArticlePatternMatch).all()
-    return list(pattern_matches)
-
-# Get All Patterns for Article Id
-def get_patterns_matches_for_article(article_id: str) -> List[ArticlePatternMatch]:
-    session = getSession()
-    pattern_matches = session.query(ArticlePatternMatch).filter(ArticlePatternMatch.article_id == article_id).all()
-    return list(pattern_matches)
-
-# Get All Articles for Pattern Id
-def get_article_matches_for_pattern(pattern_id: str) -> List[ArticlePatternMatch]:
-    session = getSession()
-    pattern_matches = session.query(ArticlePatternMatch).filter(ArticlePatternMatch.pattern_id == pattern_id).all()
-    return list(pattern_matches)
 
 def save_article_with_match(article: Article, pattern: Pattern):
     session = getSession()

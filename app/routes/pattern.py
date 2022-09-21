@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from api.pattern import create_pattern, get_patterns, get_pattern, update_pattern, delete_pattern
+from api.pattern import create_pattern, get_patterns, get_pattern, update_pattern, delete_pattern, get_patterns_for_article_id
 
 app_pattern = Blueprint("pattern_app", __name__)
 
@@ -36,6 +36,20 @@ def get_pattern_route(pattern_id: str):
     except Exception as e:
         return jsonify({"error": f"Error getting pattern {pattern_id} \nError: {e}"}), 400
 
+## Get Patterns by Article Id
+@app_pattern.route("/patterns/article/", methods=["GET"])
+def get_patterns_by_article_route():
+    request_data = request.get_json()
+    if not request_data:
+        return jsonify({"error": "No input data provided"}), 400
+    if not request_data["id"]:
+        return jsonify({"error": "No pattern id provided"}), 400
+    article_id = request_data["id"]
+    try:
+        return [pattern.__to_json__() for pattern in get_patterns_for_article_id(article_id)]
+    except Exception as e:
+        return jsonify({"error": f"Error getting patterns for article {article_id} \nError: {e}"}), 400
+
 ## Update Pattern by Id
 @app_pattern.route("/pattern/update/", methods=["PUT"])
 def update_pattern_route():
@@ -66,4 +80,5 @@ def delete_pattern_route():
         delete_pattern(request_data["pattern_id"])
         return jsonify({"message": "Pattern deleted successfully"}), 201
     except Exception as e:
-        return jsonify({"error": "Pattern deletion failed \nError: {e.message}"}), 400    
+        return jsonify({"error": "Pattern deletion failed \nError: {e.message}"}), 400
+    
