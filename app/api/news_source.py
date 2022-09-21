@@ -1,3 +1,4 @@
+from datetime import datetime
 from data.models.pattern import Pattern
 from data.models.news_source import NewsSource
 from data.query import query_news_sources, query_news_source, save_news_source, update_news_source, delete_news_source
@@ -16,8 +17,8 @@ def get_sources() -> List[NewsSource]:
     return query_news_sources()
 
 ## Update NewsSource
-def update_source(source_id: str, url: str, patterns: List[Pattern]):
-    update_news_source(source_id, url, patterns)
+def update_source(source_id: str, url: str, last_processed: datetime, status: int):
+    update_news_source(source_id, url, last_processed, status)
 
 ## Delete NewsSource
 def delete_source(source_id: str):

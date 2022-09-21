@@ -1,4 +1,6 @@
+from datetime import datetime
 from typing import List
+from util.crawl import CrawlStatus
 from data.models.article import Article
 from data.models.pattern import Pattern
 from data.models.news_source import NewsSource
@@ -14,34 +16,35 @@ def query_articles() -> List[Article]:
     return list(articles)
 
 # Get Article by Id
-def query_artcile(id) -> Article:
+def query_article(id: str) -> Article:
     session = Session()
     article = session.query(Article).filter(Article.id == id).first()
     session.close() 
     return article
 
 # Get Article by Title
-def query_article_by_title(title) -> Article:
+def query_article_by_title(title: str) -> Article:
     session = Session()
     article = session.query(Article).filter(Article.title == title).first()
     session.close()
     return article
 
-# Create Article and save to DB
-def save_article(id, title, content, published):
+# Get Article by URL
+def query_article_by_title(url: str) -> Article:
     session = Session()
-    article = Article(
-        id = id,
-        title = title,
-        content = content,
-        published = published
-    )
+    article = session.query(Article).filter(Article.url == url).first()
+    session.close()
+    return article
+
+# Create Article and save to DB
+def save_article(article: Article):
+    session = Session()
     session.add(article)
     session.commit()
     session.close()
     
 # Delete Article by Id
-def delete_article(id):
+def delete_article(id: str):
     session = Session()
     article = session.query(Article).filter(Article.id == id).first()
     session.delete(article)
@@ -51,12 +54,21 @@ def delete_article(id):
 ## News Source Queries
 
 # Save News Source
-def save_news_source(source_id: str, url: str, patterns=None):
+def save_news_source(source_id: str, url: str, last_processed: datetime, status: CrawlStatus):
     session = Session()
     news_source = NewsSource(
-        id = source_id,
-        url = url
+        id=source_id, 
+        url=url, 
+        last_processed=last_processed, 
+        status=status.value
     )
+    session.add(news_source)
+    session.commit()
+    session.close()
+
+# Save News Source
+def save_news_source(news_source: NewsSource):
+    session = Session()
     session.add(news_source)
     session.commit()
     session.close()
@@ -76,18 +88,29 @@ def query_news_source(id) -> NewsSource:
     return news_source
 
 # Update News Source
-def update_news_source(id, url, patterns):
+def update_news_source(id: str, url: str, last_processed: datetime, status: CrawlStatus):
     session = Session()
-    news_source = session.query(NewsSource).filter(NewsSource.id == id).first()
-    news_source.url = url
-    news_source.patterns = patterns
-    session.update(news_source)
+    session.query(NewsSource).filter(NewsSource.id == id).\
+        update({
+            NewsSource.url: url, 
+            NewsSource.last_processed: last_processed, 
+            NewsSource.status: status.value})
     session.commit()
     session.close()
-    return news_source
+    
+# Update News Source
+def update_news_source(news_source: NewsSource):
+    session = Session()
+    session.query(NewsSource).filter(NewsSource.id == news_source.id).\
+        update({
+            NewsSource.url: news_source.url, 
+            NewsSource.last_processed: news_source.last_processed, 
+            NewsSource.status: news_source.status.value})
+    session.commit()
+    session.close()
 
 # Delete News Source
-def delete_news_source(id):
+def delete_news_source(id: str):
     session = Session()
     news_source = session.query(NewsSource).filter(NewsSource.id == id).first()
     session.delete(news_source)
@@ -107,6 +130,13 @@ def save_pattern(id: str, regex: str):
     session.commit()
     session.close()
 
+# Create Pattern
+def save_pattern(pattern: Pattern):
+    session = Session()
+    session.add(pattern)
+    session.commit()
+    session.close()
+
 # Get All Patterns
 def query_patterns() -> List[Pattern]:
     session = Session()
@@ -115,26 +145,33 @@ def query_patterns() -> List[Pattern]:
     return list(patterns)
 
 # Get Pattern by Id
-def query_pattern(id) -> Pattern:
+def query_pattern(id: str) -> Pattern:
     session = Session()
     pattern = session.query(Pattern).filter(Pattern.id == id).first()
     session.close()
     return pattern
 
 # Update Pattern
-def update_pattern(id, name, regex, news_source_id):
+def update_pattern(id: str, regex: str):
     session = Session()
-    pattern = session.query(Pattern).filter(Pattern.id == id).first()
-    pattern.name = name
-    pattern.regex = regex
-    pattern.news_source_id = news_source_id
-    session.update(pattern)
+    session.query(Pattern).filter(Pattern.id == id).\
+        update({
+            Pattern.regex: regex, 
+        })
     session.commit()
     session.close()
-    return pattern
-
+    
+# Update Pattern
+def update_pattern(pattern: Pattern):
+    session = Session()
+    session.query(Pattern).filter(Pattern.id == pattern.id).update({
+        Pattern.regex: pattern.regex, 
+    })
+    session.commit()
+    session.close()
+    
 # Delete Pattern
-def delete_pattern(id):
+def delete_pattern(id: str):
     session = Session()
     pattern = session.query(Pattern).filter(Pattern.id == id).first()
     session.delete(pattern)

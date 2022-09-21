@@ -1,6 +1,6 @@
 from typing import Dict, List
 from data.models.article import  Article
-from data.query import query_articles, query_artcile, delete_article
+from data.query import query_articles, query_article, delete_article
 
 # Get all articles
 def get_all_articles() -> List[Article]:
@@ -8,7 +8,7 @@ def get_all_articles() -> List[Article]:
 
 # Get Article By Id
 def get_article_by_id(article_id: str) -> Article:
-    return query_artcile(article_id)
+    return query_article(article_id)
     
 # Delete Article by Id
 def delete_article(article_id: str):
