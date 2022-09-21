@@ -1,4 +1,5 @@
 from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
 from ..postgres import Base
 
 from typing import List
