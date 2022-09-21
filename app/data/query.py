@@ -44,6 +44,12 @@ def query_article_by_title(url: str) -> Article:
     article = session.query(Article).filter(Article.url == url).first()
     return article
 
+# Get All Articles for News Source Id
+def query_articles_by_news_source(news_source_id: str) -> List[Article]:
+    session = getSession()
+    articles = session.query(Article).filter(Article.source_id == news_source_id).all()
+    return list(articles)
+
 # Get All Articles for Pattern Id
 def query_articles_by_pattern_id(pattern_id: str) -> List[Article]:
     session = getSession()

@@ -1,6 +1,6 @@
-from redis import Redis
 import os
 
+from redis import Redis
 
 cache_name = 'url_visited_cache'
 
@@ -21,3 +21,9 @@ def add_to_url_visited_cache(url: str):
         redis.sadd(cache_name, url)
     except Exception as e:
         print(f"Failed to add URL to cache with error: {e}")
+
+def remove_from_url_visited_cache(url: str):
+    try:
+        redis.srem(cache_name, url)
+    except Exception as e:
+        print(f"Failed to remove URL from cache with error: {e}")
