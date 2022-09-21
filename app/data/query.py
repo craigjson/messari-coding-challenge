@@ -57,6 +57,12 @@ def query_articles_by_pattern_id(pattern_id: str) -> List[Article]:
     articles = session.query(Article).filter(Article.id.in_(article_ids)).all()
     return list(articles)
 
+# Get All Articles where has_match is True
+def query_articles_has_match(has_match: bool) -> List[Article]:
+    session = getSession()
+    articles = session.query(Article).filter(Article.has_match == has_match).all()
+    return list(articles)
+
 # Create Article and save to DB
 def save_articles(articles: List[Article]):
     session = getSession()
