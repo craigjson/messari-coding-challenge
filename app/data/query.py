@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 
 from data.models.article import Article
@@ -37,12 +38,6 @@ def query_article_by_title(title: str) -> Article:
     article = session.query(Article).filter(Article.title == title).first()
     return article
 
-def query_articles_without_matches() -> List[Article]:
-    session = Session()
-    articles = session.query(Article).filter(Article.has_match == False).all()
-    session.close()
-    return list(articles)
-
 # Get Article by URL
 def query_article_by_title(url: str) -> Article:
     session = getSession()
@@ -55,12 +50,6 @@ def query_articles_by_pattern_id(pattern_id: str) -> List[Article]:
     pattern_matches = session.query(ArticlePatternMatch).filter(ArticlePatternMatch.pattern_id == pattern_id).all()
     article_ids = [pattern_match.article_id for pattern_match in pattern_matches]
     articles = session.query(Article).filter(Article.id.in_(article_ids)).all()
-    return list(articles)
-
-# Get All Articles where has_match is True
-def query_articles_has_match(has_match: bool) -> List[Article]:
-    session = getSession()
-    articles = session.query(Article).filter(Article.has_match == has_match).all()
     return list(articles)
 
 # Create Article and save to DB
@@ -84,16 +73,15 @@ def delete_article(id: str):
     session.close()
     
 def update_article(article: Article):
-    session = Session()
+    session = getSession()
     session.query(Article).filter(Article.id == article.id).update({
-        Article.title: article.title,
-        Article.url: article.url,
-        Article.date: article.date,
-        Article.has_match: article.has_match,
-        Article.news_source_id: article.news_source_id,
+        Article.source_id: article.source_id,
+        Article.title: article.title, 
+        Article.content: article.content, 
+        Article.published: article.published, 
+        Article.last_updated: datetime.now(),
     })
     session.commit()
-    session.close()
 
 
 ## News Source Queries

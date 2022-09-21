@@ -37,14 +37,7 @@ def extract_transform_load_feed():
         # Parse News Sources for Articles
         for news_source in news_sources:
             run_etl_for_single_source(news_source=news_source)
-                    
     except Exception as e:
         print(f"Error running ETL Feed: {e}")
-
-def log_matched_articles_to_console(articles: List[Article]):
-    for article in articles:
-        if article.has_match:
-            print()
-            print(f"Title: {article.title}")
-            print(f"Published: {article.published}")
-            print(f"Content: {article.content}")
+        
+    print("Finished running ETL Feed")
