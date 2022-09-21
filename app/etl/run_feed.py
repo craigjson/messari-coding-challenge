@@ -26,8 +26,9 @@ def extract_transform_load_feed():
                     datetime.now(),
                     CrawlStatus.SUCCESS.value
                 )
+                print(f"Successfully parsed news source: {news_source.url}\n")
             except Exception as e:
-                print(f"Failed to parse news source with\nError: {e}\n")
+                print(f"Failed to parse news source {news_source.id} with\nError: {e}\n")
                 update_news_source(
                     news_source.id, 
                     news_source.url, 
