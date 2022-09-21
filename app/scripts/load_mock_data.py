@@ -99,7 +99,7 @@ def create_patterns():
         session.close()
 
 def load_mock_data():
-    #create_db()
-    #create_sources()
-    #create_patterns()
+    create_db()
+    create_sources()
+    create_patterns()
     print()

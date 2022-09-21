@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 # Load Postgres Data
 try:
-    #load_mock_data()
+    load_mock_data()
     print()
 except Exception as e:
     print(e)

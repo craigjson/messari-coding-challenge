@@ -1,9 +1,10 @@
-from datetime import datetime
 from typing import List
-from util.crawl import CrawlStatus
+
 from data.models.article import Article
-from data.models.pattern import Pattern
+from data.models.article_pattern_match import ArticlePatternMatch
 from data.models.news_source import NewsSource
+from data.models.pattern import Pattern
+
 from .postgres import Session
 
 ## Article Queries
@@ -35,6 +36,13 @@ def query_article_by_title(url: str) -> Article:
     article = session.query(Article).filter(Article.url == url).first()
     session.close()
     return article
+
+# Create Article and save to DB
+def save_articles(articles: List[Article]):
+    session = Session()
+    [session.add(article) for article in articles]
+    session.commit()
+    session.close()
 
 # Create Article and save to DB
 def save_article(article: Article):
@@ -132,3 +140,33 @@ def delete_pattern(id: str):
     session.delete(pattern)
     session.commit()
     session.close()
+    
+# Article Pattern Match Queries
+
+# Create Article Pattern Match
+def save_article_pattern_match(article_pattern_match: ArticlePatternMatch):
+    session = Session()
+    session.add(article_pattern_match)
+    session.commit()
+    session.close()
+    
+# Get All Article Pattern Matches
+def get_pattern_matches() -> List[ArticlePatternMatch]:
+    session = Session()
+    pattern_matches = session.query(ArticlePatternMatch).all()
+    session.close()
+    return list(pattern_matches)
+
+# Get All Patterns for Article Id
+def get_patterns_matches_for_article(article_id: str) -> List[ArticlePatternMatch]:
+    session = Session()
+    pattern_matches = session.query(ArticlePatternMatch).filter(ArticlePatternMatch.article_id == article_id).all()
+    session.close()
+    return list(pattern_matches)
+
+# Get All Articles for Pattern Id
+def get_article_matches_for_pattern(pattern_id: str) -> List[ArticlePatternMatch]:
+    session = Session()
+    pattern_matches = session.query(ArticlePatternMatch).filter(ArticlePatternMatch.pattern_id == pattern_id).all()
+    session.close()
+    return list(pattern_matches)
