@@ -1,9 +1,10 @@
 from redis import Redis
+import os
 
 cache_name = 'url_visited_cache'
 
 try:
-    redis = Redis(host='redis', port=6379)
+    redis = Redis(host=os.getenv('REDIS_URL'), port=os.getenv('REDIS_PORT'))
 except Exception as e:
     print(f"Failed to connect to Redis with error: {e}")
     
