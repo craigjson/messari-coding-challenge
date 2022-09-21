@@ -1,8 +1,7 @@
 from sqlalchemy import Column, String, ForeignKey, Table
 from ..postgres import Base
 
-ArticlePatternMatch = Table(
-    'ArticlePatternMatch', Base.metadata,
-    Column('article_id', String, ForeignKey('Article.id')),
-    Column('pattern_id', String, ForeignKey('Pattern.id'))
-)
+class ArticlePatternMatch(Base):
+    __tablename__ = 'ArticlePatternMatch'
+    article_id = Column(String, ForeignKey('Article.id'), primary_key=True)
+    pattern_id = Column(String, ForeignKey('Pattern.id'), primary_key=True)
