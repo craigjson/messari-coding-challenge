@@ -189,3 +189,15 @@ def save_article_with_match(article: Article, pattern: Pattern):
     session.add(article)
     session.add(ArticlePatternMatch(article_id=article.id, pattern_id=pattern.id))
     session.commit()
+    
+def delete_article_pattern_match(article_id: str, pattern_id: str):
+    session = getSession()
+    article_pattern_match = session.query(ArticlePatternMatch).filter(ArticlePatternMatch.article_id == article_id, ArticlePatternMatch.pattern_id == pattern_id).first()
+    session.delete(article_pattern_match)
+    session.commit()
+    
+def delete_all_matches_for_pattern(pattern_id: str):
+    session = getSession()
+    article_pattern_matches = session.query(ArticlePatternMatch).filter(ArticlePatternMatch.pattern_id == pattern_id).all()
+    [session.delete(article_pattern_match) for article_pattern_match in article_pattern_matches]
+    session.commit()

@@ -1,7 +1,9 @@
 from typing import List
 
 from data.models.pattern import Pattern
-from data.query import (delete_pattern, query_pattern, query_patterns,
+from data.query import (delete_all_matches_for_pattern,
+                        delete_article_pattern_match, delete_pattern,
+                        query_pattern, query_patterns,
                         query_patterns_matched_by_article, save_pattern,
                         update_article, update_pattern)
 from etl.pattern_match import article_content_matches_pattern
@@ -37,9 +39,19 @@ def update_pattern_by_id(pattern_id: str, pattern: str):
     # After we update a pattern, retrieve all articles that
     # 1. have no matches
     # 2. have a match with the pattern we just updated
-    # 3. determine if the article still matches the pattern
-    # 4. update the article's has_match field appropriately
+    # Then we need to re-determine what matches the new pattern
+    # 1. determine if the article still matches the pattern
+    # 2. update the article's has_match field appropriately
+    articles_with_no_match = query_articles_has_match(has_match=False)
+    articles_that_match_pattern = query_articles_has_match(pattern_id=pattern_id)
+    for article in articles_with_no_match + articles_that_match_pattern:
+        if article_content_matches_pattern(article.content, pattern):
+            article.has_match = True
+        else:
+            article.has_match = False
+            delete_article_pattern_match(article.id, pattern_id)
+        update_article(article)
     
 ## Delete Pattern by Id
 def delete_pattern_by_id(pattern_id: str):
-    delete_pattern(pattern_id)  
+    delete_pattern(pattern_id)
