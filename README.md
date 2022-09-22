@@ -1,6 +1,6 @@
 # messari-coding-challenge
 
-Implementation of RSS Feed scraper for Messari Back End role
+Implementation of RSS Feed scraper & REST API for Messari Back End role
 
 ### Table of Contents
 
