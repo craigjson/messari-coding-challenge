@@ -115,3 +115,4 @@ All code in this repository is written in Python3.
 6. Enhance streaming capabilities to support more combinations of Patterns/New Sources
 7. Add Server Side rendering for raw HTML to ensure we are appropriately parsing dynamic content
 8. Support for more types of pattern matching & querying
+9. Auto-generated documentation via flask-restx/swagger
