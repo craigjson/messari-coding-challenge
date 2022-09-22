@@ -47,14 +47,8 @@ def parse_news_source(news_source: NewsSource) -> List[Article]:
                     
                     # Save valid Article to DB
                     save_article(article)
-                    if article_content_matches_any_pattern(article):
-                            log_article_to_console(article)
+                    # Check if article matches any patterns and log/pubish if so
+                    article_content_matches_any_pattern(article)
         except Exception as e:
             print(f"Failed to parse news source: {news_source.url} with\nError: {e}\n")
             raise e
-
-def log_article_to_console(article: Article):
-    print()
-    print(f"Title: {article.title}")
-    print(f"Published: {article.published}")
-    print(f"Content: {article.content}")
