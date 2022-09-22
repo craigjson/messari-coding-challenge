@@ -8,5 +8,5 @@ RUN mkdir /app
 WORKDIR /app
 COPY . /app
 
-# Run shell script that will poke API every 10 seconds
+# Run shell script that will poke API every N seconds
 CMD ["./run_etl.zsh"]

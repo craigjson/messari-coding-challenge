@@ -2,6 +2,13 @@
 
 Implementation of RSS Feed scraper for Messari Back End role
 
+### Table of Contents
+
+1. [Quickstart](#quickstart)
+2. [Contribute](#contribute)
+3. Architecture
+4. API Documentation
+
 # Quickstart
 
 ## Install Necessary Software
@@ -28,7 +35,7 @@ Start it by running
 
 Note: Due to the way that docker-compose depends-on works, which is to only wait for the starting of a service instead of it's start completion, it is possible that the Flask API will retry starting up if the DB is not yet finished booting.
 
-# Environment Setup For Contributing
+# Contribute
 
 Note: Copy Environment variables from .vscode/launch.json as they are slightly different than the ones used for Docker.
 
@@ -44,5 +51,16 @@ Create the virtual environment, activate it and install requirements.
 Run the docker containers of neccessary depedencies, alternatively you could run postgres/redis locally.  
 `docker compose up redis db`
 
-Run the flask app to test changes, I like using the VSCode debugger to do this, but you can also do it in the CLI by runnng  
+Run the flask app, I like using the VSCode debugger to do this, but you can also do it in the CLI by running  
 `flask --app app.py --debug run`
+
+# Architecture
+
+DB Models
+![DB Documentation](docs/Database_Diagram_Messari.png)
+
+System Layout
+
+# API Documentation
+
+blah blah blah
