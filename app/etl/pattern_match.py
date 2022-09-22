@@ -13,7 +13,7 @@ def article_content_matches_pattern(article: Article, pattern: Pattern) -> bool:
     if search(pattern.pattern, article.content):
             save_article_pattern_match(ArticlePatternMatch(article_id=article.id, pattern_id=pattern.id))
             log_article_to_console(article)
-            publish_article_to_stream(article)
+            publish_article_to_stream(article, pattern)
             return True
     return False
 
