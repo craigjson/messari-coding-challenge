@@ -18,7 +18,10 @@ def get_articles_route():
 @app_article.route("/article/<string:article_id>", methods=["GET"])
 def get_article_route(article_id: str):
     try:
-        return jsonify(get_article_by_id(article_id).__to_json__())
+        article = get_article_by_id(article_id)
+        if article:
+            return jsonify(article.__to_json__())
+        raise Exception(f"Article: {article_id} not found")
     except Exception as e:
         return jsonify({"error": f"Error getting articles for news source {article_id} \nError: {e}"}), 400
     
@@ -35,12 +38,3 @@ def get_articles_by_pattern_route():
         return [article.__to_json__() for article in get_articles_for_pattern(pattern_id)]
     except Exception as e:
         return jsonify({"error": f"Error getting articles for pattern {pattern_id} \nError: {e}"}), 400
-
-
-@app_article.route("/feed/run_etl", methods=["GET"])
-def run_etl():
-    try:
-        extract_transform_load_feed()
-        return jsonify({"message": "ETL Feed ran successfully"}), 201
-    except Exception as e:
-        return jsonify({"error": f"Error running ETL Feed \nError: {e}"}), 400

@@ -25,7 +25,10 @@ def save_news_source():
 @app_news_source.route("/source/<string:source_id>")
 def get_source_route(source_id: str):
     try:
-        return jsonify(get_source(source_id).__to_json__())
+        source = get_source(source_id)
+        if source:
+            return jsonify(source.__to_json__())
+        raise Exception(f"Source: {source_id} not found")
     except Exception as e:
         return jsonify({"error": f"Error getting source {source_id} \nError: {e}"}), 400
     
