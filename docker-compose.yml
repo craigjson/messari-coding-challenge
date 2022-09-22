@@ -36,6 +36,14 @@ services:
       - 5432:5432
     volumes:
       - db:/var/lib/postgresql/data
+  run_etl:
+    build: run_etl
+    restart: always
+    depends_on:
+      - app
+      - db
+      - redis
+      - proxy
 volumes:
   db:
     driver: local
