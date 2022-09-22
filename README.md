@@ -100,12 +100,13 @@ All code in this repository is written in Python3.
 
 # Next Steps assuming more development time
 
-1. Use Workflow Orchestration for managing ETL feed
-2. Increasing performance/scale
+1. Add CI/CD pipeline
+2. Use Workflow Orchestration for managing ETL feed
+3. Increasing performance/scale
    - multi-threading server requests to increase API throughput
    - Database replication & sharding
    - Horizontally scale web crawling processes & API
-3. Collect analytics on article processing/querying
-4. Enhance streaming capabilities to support more combinations of Patterns/New Sources
-5. Add Server Side rendering for raw HTML to ensure we are appropriately parsing dynamic content
-6. Support for more types of pattern matching & querying
+4. Collect analytics on article processing/querying
+5. Enhance streaming capabilities to support more combinations of Patterns/New Sources
+6. Add Server Side rendering for raw HTML to ensure we are appropriately parsing dynamic content
+7. Support for more types of pattern matching & querying
