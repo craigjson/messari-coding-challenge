@@ -1,11 +1,7 @@
 from datetime import date
 
-from data.postgres import Base, Session, engine
-from data.models.article import Article
-from data.models.pattern import Pattern
 from data.models.news_source import NewsSource
-from data.models.article_pattern_match import ArticlePatternMatch
-
+from data.models.pattern import Pattern
 
 patterns = [
     Pattern(
@@ -70,36 +66,3 @@ news_sources = [
         status = 0
     ),
 ]
-
-def create_db():
-    session = Session()
-    Base.metadata.create_all(engine)
-    session.commit()
-    session.close()
-    print("created DB")
-    
-def create_sources():
-    session = Session()
-    try:
-        [session.add(source) for source in news_sources]
-        session.commit()
-    except:
-        print("News Source already exists")
-    finally:
-        session.close()
-    
-def create_patterns():
-    session = Session()
-    try:
-        [session.add(pattern) for pattern in patterns]
-        session.commit()
-    except:
-        print("Patterns already exists")
-    finally:
-        session.close()
-
-def load_mock_data():
-    create_db()
-    create_sources()
-    create_patterns()
-    print()

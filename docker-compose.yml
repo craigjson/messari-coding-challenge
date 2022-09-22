@@ -8,12 +8,18 @@ services:
     depends_on:
       - app
       - db
+      - redis
   app:
     build: app
     volumes:
       - app:/app
+    environment:
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - POSTGRES_CONNECTION_STRING=${POSTGRES_CONNECTION_STRING}
     depends_on:
       - db
+      - redis
     ports:
       - "8000:8000"
   redis:

@@ -7,20 +7,18 @@ from routes.article import app_article
 from routes.news_source import app_news_source
 from routes.pattern import app_pattern
 from routes.stream import app_stream
-from scripts.load_mock_data import load_mock_data
-
-# Load Postgres Data
-try:
-    load_mock_data()
-    print()
-except Exception as e:
-    print(e)
+from scripts.setup_db import create_db_tables
     
 # Attempt to load .env file
 load_dotenv()
 
+# Setup DB tables if they do not exist
+create_db_tables()
+
 # Initalize Flask App
 app = Flask(__name__)
+
+# load Redis configuration for flask-sse
 REDIS_HOST = getenv("REDIS_HOST")
 REDIS_PORT = getenv("REDIS_PORT")
 if REDIS_HOST and REDIS_PORT:
