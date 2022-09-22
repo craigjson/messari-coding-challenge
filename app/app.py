@@ -9,9 +9,6 @@ from routes.news_source import app_news_source
 from routes.pattern import app_pattern
 from routes.stream import app_stream
 from util.scripts.setup_db import create_db_tables
-    
-# Attempt to load .env file
-load_dotenv()
 
 # Setup DB tables if they do not exist
 create_db_tables()
