@@ -22,6 +22,6 @@ class Article(Base):
             'source_id': self.source_id,
             'title': self.title,
             'content': self.content,
-            'published': self.published,
-            'last_updated': self.last_updated
+            'published': str(self.published),
+            'last_updated': str(self.last_updated)
         }
