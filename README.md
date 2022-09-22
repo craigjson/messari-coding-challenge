@@ -16,6 +16,10 @@ Implementation of RSS Feed scraper & REST API for Messari Back End role
 
 This project uses [Docker](https://docs.docker.com/get-docker/), it is neccesary to launch and run the system.
 
+### Optional Software
+
+This project includes a [Postman](https://www.postman.com/downloads/) collection to easily make requests to different REST endpoints. This helps save time, makes basic testing easy and makes actions repeatable.
+
 ## Environment Variables
 
 We use a `.env` file to inject environment variables into docker containers
