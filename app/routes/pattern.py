@@ -32,7 +32,10 @@ def get_patterns_route():
 @app_pattern.route("/pattern/<string:pattern_id>")
 def get_pattern_route(pattern_id: str):
     try:
-        return jsonify(get_pattern(pattern_id).__to_json__())
+        pattern = get_pattern(pattern_id)
+        if pattern:
+            return jsonify(pattern.__to_json__())
+        raise Exception(f"Article: {pattern_id} not found")
     except Exception as e:
         return jsonify({"error": f"Error getting pattern {pattern_id} \nError: {e}"}), 400
 
