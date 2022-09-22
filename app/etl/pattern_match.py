@@ -27,6 +27,9 @@ def article_content_matches_any_pattern(article: Article) -> List[str]:
 
 def log_article_to_console(article: Article):
     print()
+    print()
     print(f"Title: {article.title}")
     print(f"Published: {article.published}")
     print(f"Content: {article.content}")
+    print()
+    print()
